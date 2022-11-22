@@ -50,18 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    20%
+    95%
   </span>
   <span class="absValue">
-    (4/20)
+    (19/20)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    18.3%
+    98.3%
   </span>
   <span class="absValue">
-    (11/60)
+    (59/60)
   </span>
 </td>
 </tr>
@@ -74,289 +74,290 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package edu.wayne.csc4110;
-<i class="no-highlight">2</i>&nbsp;
-<b class="nc"><i class="no-highlight">3</i>&nbsp;public class VectorAlgebra {</b>
-<i class="no-highlight">4</i>&nbsp;    /**
-<i class="no-highlight">5</i>&nbsp;     * add method accepts two vectors and returns their element-wise
-<i class="no-highlight">6</i>&nbsp;     * sum in a new Vector object. Assumes v1 and v2 have the same
-<i class="no-highlight">7</i>&nbsp;     * length.
-<i class="no-highlight">8</i>&nbsp;     * @param u1 a Vector object
-<i class="no-highlight">9</i>&nbsp;     * @param u2 a Vector object
-<i class="no-highlight">10</i>&nbsp;     * @return a Vector objects whose entries are the sums of corresponding
-<i class="no-highlight">11</i>&nbsp;     *         entries in u1 and u2
-<i class="no-highlight">12</i>&nbsp;     */
-<i class="no-highlight">13</i>&nbsp;    public static Vector add(Vector u1, Vector u2) {
-<b class="fc"><i class="no-highlight">14</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
-<i class="no-highlight">15</i>&nbsp;
-<b class="fc"><i class="no-highlight">16</i>&nbsp;        double[] sums = new double[u1.length()];</b>
-<i class="no-highlight">17</i>&nbsp;
-<b class="fc"><i class="no-highlight">18</i>&nbsp;        for (int i = 0; i &lt; sums.length; i++) {</b>
-<b class="fc"><i class="no-highlight">19</i>&nbsp;            sums[i] = u1.get(i) + u2.get(i);</b>
-<i class="no-highlight">20</i>&nbsp;        }
-<i class="no-highlight">21</i>&nbsp;
-<b class="fc"><i class="no-highlight">22</i>&nbsp;        return new Vector(sums);</b>
-<i class="no-highlight">23</i>&nbsp;    }
-<i class="no-highlight">24</i>&nbsp;
-<i class="no-highlight">25</i>&nbsp;    /**
-<i class="no-highlight">26</i>&nbsp;     * compares two vectors. returns true if those are equal
-<i class="no-highlight">27</i>&nbsp;     *
-<i class="no-highlight">28</i>&nbsp;     * @param u1 a Vector object
-<i class="no-highlight">29</i>&nbsp;     * @param u2 a Vector object
-<i class="no-highlight">30</i>&nbsp;     * @return True if those are equal else False
-<i class="no-highlight">31</i>&nbsp;     */
-<i class="no-highlight">32</i>&nbsp;    public static boolean compare(Vector u1, Vector u2) {
-<i class="no-highlight">33</i>&nbsp;
-<b class="fc"><i class="no-highlight">34</i>&nbsp;        if (u1.length()!=u2.length()) return  false;</b>
-<i class="no-highlight">35</i>&nbsp;
-<b class="fc"><i class="no-highlight">36</i>&nbsp;        for (int i = 0; i &lt; u1.length(); i++) {</b>
-<b class="fc"><i class="no-highlight">37</i>&nbsp;            if(! isEqual(u1.get(i), u2.get(i) ))</b>
-<b class="nc"><i class="no-highlight">38</i>&nbsp;                return  false;</b>
-<i class="no-highlight">39</i>&nbsp;        }
-<b class="fc"><i class="no-highlight">40</i>&nbsp;        return true;</b>
-<i class="no-highlight">41</i>&nbsp;    }
-<i class="no-highlight">42</i>&nbsp;
-<i class="no-highlight">43</i>&nbsp;    /**
-<i class="no-highlight">44</i>&nbsp;     * angleDegrees method computes the angle between the two vectors,
-<i class="no-highlight">45</i>&nbsp;     * computed as arccos(u1.dot(u2) / (u1.magnitude() * u2.magnitude())
-<i class="no-highlight">46</i>&nbsp;     * @param u1 a Vector object
-<i class="no-highlight">47</i>&nbsp;     * @param u2 a Vector object
-<i class="no-highlight">48</i>&nbsp;     * @return the angle between u1 and u2 (in radians)
-<i class="no-highlight">49</i>&nbsp;     */
-<i class="no-highlight">50</i>&nbsp;    public static double angleDegrees(Vector u1, Vector u2) {
-<b class="nc"><i class="no-highlight">51</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
-<b class="nc"><i class="no-highlight">52</i>&nbsp;        return VectorAlgebra.angleRadians(u1, u2) * 180 / Math.PI;</b>
-<i class="no-highlight">53</i>&nbsp;    }
-<i class="no-highlight">54</i>&nbsp;
-<i class="no-highlight">55</i>&nbsp;    /**
-<i class="no-highlight">56</i>&nbsp;     * angleRadians method computes the angle between the two vectors,
-<i class="no-highlight">57</i>&nbsp;     * computed as arccos(u1.dot(u2) / (u1.magnitude() * u2.magnitude())
-<i class="no-highlight">58</i>&nbsp;     * @param u1 a Vector object
-<i class="no-highlight">59</i>&nbsp;     * @param u2 a Vector object
-<i class="no-highlight">60</i>&nbsp;     * @return the angle between u1 and u2 (in radians)
-<i class="no-highlight">61</i>&nbsp;     */
-<i class="no-highlight">62</i>&nbsp;    public static double angleRadians(Vector u1, Vector u2) {
-<b class="nc"><i class="no-highlight">63</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
-<b class="nc"><i class="no-highlight">64</i>&nbsp;        return Math.acos(VectorAlgebra.dot(u1, u2) / (u1.magnitude() * u2.magnitude()));</b>
-<i class="no-highlight">65</i>&nbsp;    }
-<i class="no-highlight">66</i>&nbsp;
-<i class="no-highlight">67</i>&nbsp;    /**
-<i class="no-highlight">68</i>&nbsp;     * length method returns the number of entries in the
-<i class="no-highlight">69</i>&nbsp;     * vector.
-<i class="no-highlight">70</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">71</i>&nbsp;     * @return the length of u
-<i class="no-highlight">72</i>&nbsp;     */
-<i class="no-highlight">73</i>&nbsp;    public static int length(Vector u) {
-<b class="nc"><i class="no-highlight">74</i>&nbsp;        return u.length();</b>
-<i class="no-highlight">75</i>&nbsp;    }
-<i class="no-highlight">76</i>&nbsp;
-<i class="no-highlight">77</i>&nbsp;    /**
-<i class="no-highlight">78</i>&nbsp;     * magnitude method is a wrapper for pnorm, with p=2
-<i class="no-highlight">79</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">80</i>&nbsp;     * @return the magnitude of the vector
-<i class="no-highlight">81</i>&nbsp;     */
-<i class="no-highlight">82</i>&nbsp;    public static double magnitude(Vector u) {
-<b class="nc"><i class="no-highlight">83</i>&nbsp;        return VectorAlgebra.pnorm(u, 2);</b>
-<i class="no-highlight">84</i>&nbsp;    }
-<i class="no-highlight">85</i>&nbsp;
-<i class="no-highlight">86</i>&nbsp;    /**
-<i class="no-highlight">87</i>&nbsp;     * pnorm accepts a Vector and a value for p and returns the Lp norm
-<i class="no-highlight">88</i>&nbsp;     * (the p-th root of the sum of the p-th power of the absolute value of
-<i class="no-highlight">89</i>&nbsp;     * the enttries
-<i class="no-highlight">90</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">91</i>&nbsp;     * @param p a real number greater than or equal to 1
-<i class="no-highlight">92</i>&nbsp;     * @return the Lp norm of the vector
-<i class="no-highlight">93</i>&nbsp;     */
-<i class="no-highlight">94</i>&nbsp;    public static double pnorm(Vector u, double p) {
-<b class="nc"><i class="no-highlight">95</i>&nbsp;        if (p &lt; 1) {</b>
-<b class="nc"><i class="no-highlight">96</i>&nbsp;            throw new IllegalArgumentException(&quot;p must be &gt;= 1&quot;);</b>
-<i class="no-highlight">97</i>&nbsp;        }
-<i class="no-highlight">98</i>&nbsp;
-<b class="nc"><i class="no-highlight">99</i>&nbsp;        double sum = 0;</b>
-<i class="no-highlight">100</i>&nbsp;
-<b class="nc"><i class="no-highlight">101</i>&nbsp;        for (int i = 0; i &lt; u.length(); i++) {</b>
-<b class="nc"><i class="no-highlight">102</i>&nbsp;            sum += Math.pow(Math.abs(u.get(i)), p);</b>
-<i class="no-highlight">103</i>&nbsp;        }
-<i class="no-highlight">104</i>&nbsp;
-<b class="nc"><i class="no-highlight">105</i>&nbsp;        return Math.pow(sum, 1/p);</b>
-<i class="no-highlight">106</i>&nbsp;    }
-<i class="no-highlight">107</i>&nbsp;
-<i class="no-highlight">108</i>&nbsp;    /**
-<i class="no-highlight">109</i>&nbsp;     * dot method computes the dot product of two vectors.
-<i class="no-highlight">110</i>&nbsp;     * assumes vectors have the same length.
-<i class="no-highlight">111</i>&nbsp;     * @param u1 a Vector object
-<i class="no-highlight">112</i>&nbsp;     * @param u2 a Vector object
-<i class="no-highlight">113</i>&nbsp;     * @return the sum of the products of corresponding elements
-<i class="no-highlight">114</i>&nbsp;     */
-<i class="no-highlight">115</i>&nbsp;    public static double dot(Vector u1, Vector u2) {
-<b class="nc"><i class="no-highlight">116</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
-<i class="no-highlight">117</i>&nbsp;
-<b class="nc"><i class="no-highlight">118</i>&nbsp;        double sum = 0;</b>
-<i class="no-highlight">119</i>&nbsp;
-<b class="nc"><i class="no-highlight">120</i>&nbsp;        for (int i = 0; i &lt; u1.length(); i++) {</b>
-<b class="nc"><i class="no-highlight">121</i>&nbsp;            sum += (u1.get(i) * u2.get(i));</b>
-<i class="no-highlight">122</i>&nbsp;        }
-<i class="no-highlight">123</i>&nbsp;
-<b class="nc"><i class="no-highlight">124</i>&nbsp;        return sum;</b>
-<i class="no-highlight">125</i>&nbsp;    }
-<i class="no-highlight">126</i>&nbsp;
+<i class="no-highlight">2</i>&nbsp;import  java.lang.Math;
+<i class="no-highlight">3</i>&nbsp;
+<b class="nc"><i class="no-highlight">4</i>&nbsp;public class VectorAlgebra {</b>
+<i class="no-highlight">5</i>&nbsp;    /**
+<i class="no-highlight">6</i>&nbsp;     * add method accepts two vectors and returns their element-wise
+<i class="no-highlight">7</i>&nbsp;     * sum in a new Vector object. Assumes v1 and v2 have the same
+<i class="no-highlight">8</i>&nbsp;     * length.
+<i class="no-highlight">9</i>&nbsp;     * @param u1 a Vector object
+<i class="no-highlight">10</i>&nbsp;     * @param u2 a Vector object
+<i class="no-highlight">11</i>&nbsp;     * @return a Vector objects whose entries are the sums of corresponding
+<i class="no-highlight">12</i>&nbsp;     *         entries in u1 and u2
+<i class="no-highlight">13</i>&nbsp;     */
+<i class="no-highlight">14</i>&nbsp;    public static Vector add(Vector u1, Vector u2) {
+<b class="fc"><i class="no-highlight">15</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
+<i class="no-highlight">16</i>&nbsp;
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        double[] sums = new double[u1.length()];</b>
+<i class="no-highlight">18</i>&nbsp;
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        for (int i = 0; i &lt; sums.length; i++) {</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;            sums[i] = u1.get(i) + u2.get(i);</b>
+<i class="no-highlight">21</i>&nbsp;        }
+<i class="no-highlight">22</i>&nbsp;
+<b class="fc"><i class="no-highlight">23</i>&nbsp;        return new Vector(sums);</b>
+<i class="no-highlight">24</i>&nbsp;    }
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    /**
+<i class="no-highlight">27</i>&nbsp;     * compares two vectors. returns true if those are equal
+<i class="no-highlight">28</i>&nbsp;     *
+<i class="no-highlight">29</i>&nbsp;     * @param u1 a Vector object
+<i class="no-highlight">30</i>&nbsp;     * @param u2 a Vector object
+<i class="no-highlight">31</i>&nbsp;     * @return True if those are equal else False
+<i class="no-highlight">32</i>&nbsp;     */
+<i class="no-highlight">33</i>&nbsp;    public static boolean compare(Vector u1, Vector u2) {
+<i class="no-highlight">34</i>&nbsp;
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        if (u1.length()!=u2.length()) return  false;</b>
+<i class="no-highlight">36</i>&nbsp;
+<b class="fc"><i class="no-highlight">37</i>&nbsp;        for (int i = 0; i &lt; u1.length(); i++) {</b>
+<b class="fc"><i class="no-highlight">38</i>&nbsp;            if(! isEqual(u1.get(i), u2.get(i) ))</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;                return  false;</b>
+<i class="no-highlight">40</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">41</i>&nbsp;        return true;</b>
+<i class="no-highlight">42</i>&nbsp;    }
+<i class="no-highlight">43</i>&nbsp;
+<i class="no-highlight">44</i>&nbsp;    /**
+<i class="no-highlight">45</i>&nbsp;     * angleDegrees method computes the angle between the two vectors,
+<i class="no-highlight">46</i>&nbsp;     * computed as arccos(u1.dot(u2) / (u1.magnitude() * u2.magnitude())
+<i class="no-highlight">47</i>&nbsp;     * @param u1 a Vector object
+<i class="no-highlight">48</i>&nbsp;     * @param u2 a Vector object
+<i class="no-highlight">49</i>&nbsp;     * @return the angle between u1 and u2 (in radians)
+<i class="no-highlight">50</i>&nbsp;     */
+<i class="no-highlight">51</i>&nbsp;    public static double angleDegrees(Vector u1, Vector u2) {
+<b class="fc"><i class="no-highlight">52</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        return VectorAlgebra.angleRadians(u1, u2) * 180 / Math.PI;</b>
+<i class="no-highlight">54</i>&nbsp;    }
+<i class="no-highlight">55</i>&nbsp;
+<i class="no-highlight">56</i>&nbsp;    /**
+<i class="no-highlight">57</i>&nbsp;     * angleRadians method computes the angle between the two vectors,
+<i class="no-highlight">58</i>&nbsp;     * computed as arccos(u1.dot(u2) / (u1.magnitude() * u2.magnitude())
+<i class="no-highlight">59</i>&nbsp;     * @param u1 a Vector object
+<i class="no-highlight">60</i>&nbsp;     * @param u2 a Vector object
+<i class="no-highlight">61</i>&nbsp;     * @return the angle between u1 and u2 (in radians)
+<i class="no-highlight">62</i>&nbsp;     */
+<i class="no-highlight">63</i>&nbsp;    public static double angleRadians(Vector u1, Vector u2) {
+<b class="fc"><i class="no-highlight">64</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
+<b class="fc"><i class="no-highlight">65</i>&nbsp;        return Math.acos(VectorAlgebra.dot(u1, u2) / (u1.magnitude() * u2.magnitude()));</b>
+<i class="no-highlight">66</i>&nbsp;    }
+<i class="no-highlight">67</i>&nbsp;
+<i class="no-highlight">68</i>&nbsp;    /**
+<i class="no-highlight">69</i>&nbsp;     * length method returns the number of entries in the
+<i class="no-highlight">70</i>&nbsp;     * vector.
+<i class="no-highlight">71</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">72</i>&nbsp;     * @return the length of u
+<i class="no-highlight">73</i>&nbsp;     */
+<i class="no-highlight">74</i>&nbsp;    public static int length(Vector u) {
+<b class="fc"><i class="no-highlight">75</i>&nbsp;        return u.length();</b>
+<i class="no-highlight">76</i>&nbsp;    }
+<i class="no-highlight">77</i>&nbsp;
+<i class="no-highlight">78</i>&nbsp;    /**
+<i class="no-highlight">79</i>&nbsp;     * magnitude method is a wrapper for pnorm, with p=2
+<i class="no-highlight">80</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">81</i>&nbsp;     * @return the magnitude of the vector
+<i class="no-highlight">82</i>&nbsp;     */
+<i class="no-highlight">83</i>&nbsp;    public static double magnitude(Vector u) {
+<b class="fc"><i class="no-highlight">84</i>&nbsp;        return VectorAlgebra.pnorm(u, 2);</b>
+<i class="no-highlight">85</i>&nbsp;    }
+<i class="no-highlight">86</i>&nbsp;
+<i class="no-highlight">87</i>&nbsp;    /**
+<i class="no-highlight">88</i>&nbsp;     * pnorm accepts a Vector and a value for p and returns the Lp norm
+<i class="no-highlight">89</i>&nbsp;     * (the p-th root of the sum of the p-th power of the absolute value of
+<i class="no-highlight">90</i>&nbsp;     * the enttries
+<i class="no-highlight">91</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">92</i>&nbsp;     * @param p a real number greater than or equal to 1
+<i class="no-highlight">93</i>&nbsp;     * @return the Lp norm of the vector
+<i class="no-highlight">94</i>&nbsp;     */
+<i class="no-highlight">95</i>&nbsp;    public static double pnorm(Vector u, double p) {
+<b class="fc"><i class="no-highlight">96</i>&nbsp;        if (p &lt; 1) {</b>
+<b class="fc"><i class="no-highlight">97</i>&nbsp;            throw new IllegalArgumentException(&quot;p must be &gt;= 1&quot;);</b>
+<i class="no-highlight">98</i>&nbsp;        }
+<i class="no-highlight">99</i>&nbsp;
+<b class="fc"><i class="no-highlight">100</i>&nbsp;        double sum = 0;</b>
+<i class="no-highlight">101</i>&nbsp;
+<b class="fc"><i class="no-highlight">102</i>&nbsp;        for (int i = 0; i &lt; u.length(); i++) {</b>
+<b class="fc"><i class="no-highlight">103</i>&nbsp;            sum += Math.pow(Math.abs(u.get(i)), p);</b>
+<i class="no-highlight">104</i>&nbsp;        }
+<i class="no-highlight">105</i>&nbsp;
+<b class="fc"><i class="no-highlight">106</i>&nbsp;        return Math.pow(sum, 1/p);</b>
+<i class="no-highlight">107</i>&nbsp;    }
+<i class="no-highlight">108</i>&nbsp;
+<i class="no-highlight">109</i>&nbsp;    /**
+<i class="no-highlight">110</i>&nbsp;     * dot method computes the dot product of two vectors.
+<i class="no-highlight">111</i>&nbsp;     * assumes vectors have the same length.
+<i class="no-highlight">112</i>&nbsp;     * @param u1 a Vector object
+<i class="no-highlight">113</i>&nbsp;     * @param u2 a Vector object
+<i class="no-highlight">114</i>&nbsp;     * @return the sum of the products of corresponding elements
+<i class="no-highlight">115</i>&nbsp;     */
+<i class="no-highlight">116</i>&nbsp;    public static double dot(Vector u1, Vector u2) {
+<b class="fc"><i class="no-highlight">117</i>&nbsp;        VectorAlgebra.checkLengths(u1, u2);</b>
+<i class="no-highlight">118</i>&nbsp;
+<b class="fc"><i class="no-highlight">119</i>&nbsp;        double sum = 0;</b>
+<i class="no-highlight">120</i>&nbsp;
+<b class="fc"><i class="no-highlight">121</i>&nbsp;        for (int i = 0; i &lt; u1.length(); i++) {</b>
+<b class="fc"><i class="no-highlight">122</i>&nbsp;            sum += (u1.get(i) * u2.get(i));</b>
+<i class="no-highlight">123</i>&nbsp;        }
+<i class="no-highlight">124</i>&nbsp;
+<b class="fc"><i class="no-highlight">125</i>&nbsp;        return sum;</b>
+<i class="no-highlight">126</i>&nbsp;    }
 <i class="no-highlight">127</i>&nbsp;
-<i class="no-highlight">128</i>&nbsp;    /**
-<i class="no-highlight">129</i>&nbsp;     * multiply accepts a Vector object and a scalar and returns
-<i class="no-highlight">130</i>&nbsp;     * a Vector whose entries are the entries of the Vector, multiplied
-<i class="no-highlight">131</i>&nbsp;     * by the scalar.
-<i class="no-highlight">132</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">133</i>&nbsp;     * @param scalar a real number
-<i class="no-highlight">134</i>&nbsp;     * @return the scalar product of the vector and the scalar
-<i class="no-highlight">135</i>&nbsp;     */
-<i class="no-highlight">136</i>&nbsp;    public static Vector multiply(Vector u, double scalar) {
-<b class="nc"><i class="no-highlight">137</i>&nbsp;        double[] products = new double[u.length()];</b>
-<i class="no-highlight">138</i>&nbsp;
-<b class="nc"><i class="no-highlight">139</i>&nbsp;        for (int i = 0; i &lt; products.length; i++) {</b>
-<b class="nc"><i class="no-highlight">140</i>&nbsp;            products[i] = scalar * u.get(i);</b>
-<i class="no-highlight">141</i>&nbsp;        }
-<i class="no-highlight">142</i>&nbsp;
-<b class="nc"><i class="no-highlight">143</i>&nbsp;        return new Vector(products);</b>
-<i class="no-highlight">144</i>&nbsp;    }
-<i class="no-highlight">145</i>&nbsp;
+<i class="no-highlight">128</i>&nbsp;
+<i class="no-highlight">129</i>&nbsp;    /**
+<i class="no-highlight">130</i>&nbsp;     * multiply accepts a Vector object and a scalar and returns
+<i class="no-highlight">131</i>&nbsp;     * a Vector whose entries are the entries of the Vector, multiplied
+<i class="no-highlight">132</i>&nbsp;     * by the scalar.
+<i class="no-highlight">133</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">134</i>&nbsp;     * @param scalar a real number
+<i class="no-highlight">135</i>&nbsp;     * @return the scalar product of the vector and the scalar
+<i class="no-highlight">136</i>&nbsp;     */
+<i class="no-highlight">137</i>&nbsp;    public static Vector multiply(Vector u, double scalar) {
+<b class="fc"><i class="no-highlight">138</i>&nbsp;        double[] products = new double[u.length()];</b>
+<i class="no-highlight">139</i>&nbsp;
+<b class="fc"><i class="no-highlight">140</i>&nbsp;        for (int i = 0; i &lt; products.length; i++) {</b>
+<b class="fc"><i class="no-highlight">141</i>&nbsp;            products[i] = scalar * u.get(i);</b>
+<i class="no-highlight">142</i>&nbsp;        }
+<i class="no-highlight">143</i>&nbsp;
+<b class="fc"><i class="no-highlight">144</i>&nbsp;        return new Vector(products);</b>
+<i class="no-highlight">145</i>&nbsp;    }
 <i class="no-highlight">146</i>&nbsp;
-<i class="no-highlight">147</i>&nbsp;    /**
-<i class="no-highlight">148</i>&nbsp;     * checkLengths method accepts two vectors and throws and
-<i class="no-highlight">149</i>&nbsp;     * IllegalArgumentException if they are not the same lengths.
-<i class="no-highlight">150</i>&nbsp;     * @param u1 a Vector object
-<i class="no-highlight">151</i>&nbsp;     * @param u2 a Vector object
-<i class="no-highlight">152</i>&nbsp;     */
-<i class="no-highlight">153</i>&nbsp;    public static void checkLengths(Vector u1, Vector u2) {
-<b class="fc"><i class="no-highlight">154</i>&nbsp;        if (u1.length() != u2.length()) {</b>
-<b class="nc"><i class="no-highlight">155</i>&nbsp;            throw new IllegalArgumentException(&quot;Vectors are different lengths&quot;);</b>
-<i class="no-highlight">156</i>&nbsp;        }
-<i class="no-highlight">157</i>&nbsp;    }
-<i class="no-highlight">158</i>&nbsp;
-<i class="no-highlight">159</i>&nbsp;    /**
-<i class="no-highlight">160</i>&nbsp;     * cross method takes two vectors of length 3 and returns their
-<i class="no-highlight">161</i>&nbsp;     * cross product. Note that this operation is anticommutative, so
-<i class="no-highlight">162</i>&nbsp;     * cross(a, b) = -cross(b, a)
-<i class="no-highlight">163</i>&nbsp;     * @param a the left vector Vector
-<i class="no-highlight">164</i>&nbsp;     * @param b the right vector Vector
-<i class="no-highlight">165</i>&nbsp;     * @return the cross product a X b
-<i class="no-highlight">166</i>&nbsp;     */
-<i class="no-highlight">167</i>&nbsp;    public static Vector cross(Vector a, Vector b) {
-<i class="no-highlight">168</i>&nbsp;        // check to make sure both vectors are the right length
-<b class="nc"><i class="no-highlight">169</i>&nbsp;        if (a.length() != 3) {</b>
-<b class="nc"><i class="no-highlight">170</i>&nbsp;            throw new IllegalArgumentException(&quot;Invalid vector length (first vector)&quot;);</b>
-<i class="no-highlight">171</i>&nbsp;        }
-<b class="nc"><i class="no-highlight">172</i>&nbsp;        if (a.length() != 3) {</b>
-<b class="nc"><i class="no-highlight">173</i>&nbsp;            throw new IllegalArgumentException(&quot;Invalid vector length (second vector)&quot;);</b>
-<i class="no-highlight">174</i>&nbsp;        }
-<b class="nc"><i class="no-highlight">175</i>&nbsp;        VectorAlgebra.checkLengths(a, b); // just in case</b>
-<i class="no-highlight">176</i>&nbsp;
-<b class="nc"><i class="no-highlight">177</i>&nbsp;        double[] entries = new double[] {</b>
-<b class="nc"><i class="no-highlight">178</i>&nbsp;                a.get(1) * b.get(2) - a.get(2) * b.get(1),</b>
-<b class="nc"><i class="no-highlight">179</i>&nbsp;                a.get(2) * b.get(0) - a.get(0) * b.get(2),</b>
-<b class="nc"><i class="no-highlight">180</i>&nbsp;                a.get(0) * b.get(1) - a.get(1) * b.get(0)};</b>
-<i class="no-highlight">181</i>&nbsp;
-<b class="nc"><i class="no-highlight">182</i>&nbsp;        return new Vector(entries);</b>
-<i class="no-highlight">183</i>&nbsp;    }
-<i class="no-highlight">184</i>&nbsp;
-<i class="no-highlight">185</i>&nbsp;    /**
-<i class="no-highlight">186</i>&nbsp;     * isZero checks to see if all entries are zero.
-<i class="no-highlight">187</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">188</i>&nbsp;     * @return true if all entries in u are zero, false otherwise
-<i class="no-highlight">189</i>&nbsp;     */
-<i class="no-highlight">190</i>&nbsp;    public static boolean isZero(Vector u) {
-<b class="nc"><i class="no-highlight">191</i>&nbsp;        for (double entry : u.getEntries()) {</b>
-<b class="nc"><i class="no-highlight">192</i>&nbsp;            if (Math.abs(entry) &gt; Vector.THRESHOLD) { // if a non-zero entry is found</b>
-<b class="nc"><i class="no-highlight">193</i>&nbsp;                return false;</b>
-<i class="no-highlight">194</i>&nbsp;            }
-<i class="no-highlight">195</i>&nbsp;        }
-<i class="no-highlight">196</i>&nbsp;
-<b class="nc"><i class="no-highlight">197</i>&nbsp;        return true;</b>
-<i class="no-highlight">198</i>&nbsp;    }
-<i class="no-highlight">199</i>&nbsp;
+<i class="no-highlight">147</i>&nbsp;
+<i class="no-highlight">148</i>&nbsp;    /**
+<i class="no-highlight">149</i>&nbsp;     * checkLengths method accepts two vectors and throws and
+<i class="no-highlight">150</i>&nbsp;     * IllegalArgumentException if they are not the same lengths.
+<i class="no-highlight">151</i>&nbsp;     * @param u1 a Vector object
+<i class="no-highlight">152</i>&nbsp;     * @param u2 a Vector object
+<i class="no-highlight">153</i>&nbsp;     */
+<i class="no-highlight">154</i>&nbsp;    public static void checkLengths(Vector u1, Vector u2) {
+<b class="fc"><i class="no-highlight">155</i>&nbsp;        if (u1.length() != u2.length()) {</b>
+<b class="fc"><i class="no-highlight">156</i>&nbsp;            throw new IllegalArgumentException(&quot;Vectors are different lengths&quot;);</b>
+<i class="no-highlight">157</i>&nbsp;        }
+<i class="no-highlight">158</i>&nbsp;    }
+<i class="no-highlight">159</i>&nbsp;
+<i class="no-highlight">160</i>&nbsp;    /**
+<i class="no-highlight">161</i>&nbsp;     * cross method takes two vectors of length 3 and returns their
+<i class="no-highlight">162</i>&nbsp;     * cross product. Note that this operation is anticommutative, so
+<i class="no-highlight">163</i>&nbsp;     * cross(a, b) = -cross(b, a)
+<i class="no-highlight">164</i>&nbsp;     * @param a the left vector Vector
+<i class="no-highlight">165</i>&nbsp;     * @param b the right vector Vector
+<i class="no-highlight">166</i>&nbsp;     * @return the cross product a X b
+<i class="no-highlight">167</i>&nbsp;     */
+<i class="no-highlight">168</i>&nbsp;    public static Vector cross(Vector a, Vector b) {
+<i class="no-highlight">169</i>&nbsp;        // check to make sure both vectors are the right length
+<b class="fc"><i class="no-highlight">170</i>&nbsp;        if (a.length() != 3) {</b>
+<b class="fc"><i class="no-highlight">171</i>&nbsp;            throw new IllegalArgumentException(&quot;Invalid vector length (first vector)&quot;);</b>
+<i class="no-highlight">172</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">173</i>&nbsp;        if (b.length() != 3) {</b>
+<b class="fc"><i class="no-highlight">174</i>&nbsp;            throw new IllegalArgumentException(&quot;Invalid vector length (second vector)&quot;);</b>
+<i class="no-highlight">175</i>&nbsp;        }
+<b class="fc"><i class="no-highlight">176</i>&nbsp;        VectorAlgebra.checkLengths(a, b); // just in case</b>
+<i class="no-highlight">177</i>&nbsp;
+<b class="fc"><i class="no-highlight">178</i>&nbsp;        double[] entries = new double[] {</b>
+<b class="fc"><i class="no-highlight">179</i>&nbsp;                a.get(1) * b.get(2) - a.get(2) * b.get(1),</b>
+<b class="fc"><i class="no-highlight">180</i>&nbsp;                a.get(2) * b.get(0) - a.get(0) * b.get(2),</b>
+<b class="fc"><i class="no-highlight">181</i>&nbsp;                a.get(0) * b.get(1) - a.get(1) * b.get(0)};</b>
+<i class="no-highlight">182</i>&nbsp;
+<b class="fc"><i class="no-highlight">183</i>&nbsp;        return new Vector(entries);</b>
+<i class="no-highlight">184</i>&nbsp;    }
+<i class="no-highlight">185</i>&nbsp;
+<i class="no-highlight">186</i>&nbsp;    /**
+<i class="no-highlight">187</i>&nbsp;     * isZero checks to see if all entries are zero.
+<i class="no-highlight">188</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">189</i>&nbsp;     * @return true if all entries in u are zero, false otherwise
+<i class="no-highlight">190</i>&nbsp;     */
+<i class="no-highlight">191</i>&nbsp;    public static boolean isZero(Vector u) {
+<b class="fc"><i class="no-highlight">192</i>&nbsp;        for (double entry : u.getEntries()) {</b>
+<b class="fc"><i class="no-highlight">193</i>&nbsp;            if (Math.abs(entry) &gt; Vector.THRESHOLD) { // if a non-zero entry is found</b>
+<b class="fc"><i class="no-highlight">194</i>&nbsp;                return false;</b>
+<i class="no-highlight">195</i>&nbsp;            }
+<i class="no-highlight">196</i>&nbsp;        }
+<i class="no-highlight">197</i>&nbsp;
+<b class="fc"><i class="no-highlight">198</i>&nbsp;        return true;</b>
+<i class="no-highlight">199</i>&nbsp;    }
 <i class="no-highlight">200</i>&nbsp;
-<i class="no-highlight">201</i>&nbsp;    /**
-<i class="no-highlight">202</i>&nbsp;     * identityVector returns an additive identity vector (whose entries are
-<i class="no-highlight">203</i>&nbsp;     * all zeros).
-<i class="no-highlight">204</i>&nbsp;     * @param length the length of the vector
-<i class="no-highlight">205</i>&nbsp;     * @return a vector with all zeros
-<i class="no-highlight">206</i>&nbsp;     */
-<i class="no-highlight">207</i>&nbsp;    public static Vector identityVector(int length) {
-<b class="nc"><i class="no-highlight">208</i>&nbsp;        return new Vector(new double[length]);</b>
-<i class="no-highlight">209</i>&nbsp;    }
-<i class="no-highlight">210</i>&nbsp;
-<i class="no-highlight">211</i>&nbsp;    /**
-<i class="no-highlight">212</i>&nbsp;     * normalize scales the passed vector by dividing it by its
-<i class="no-highlight">213</i>&nbsp;     * magnitude. if the zero vector is passed, an IllegalArgumentException
-<i class="no-highlight">214</i>&nbsp;     * is thrown.
-<i class="no-highlight">215</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">216</i>&nbsp;     * @return a Vector object
-<i class="no-highlight">217</i>&nbsp;     */
-<i class="no-highlight">218</i>&nbsp;    public static Vector normalize(Vector u) {
-<b class="nc"><i class="no-highlight">219</i>&nbsp;        if (u.isZero()) {</b>
-<b class="nc"><i class="no-highlight">220</i>&nbsp;            throw new IllegalArgumentException();</b>
-<i class="no-highlight">221</i>&nbsp;        } else {
-<b class="nc"><i class="no-highlight">222</i>&nbsp;            return u.multiply(1.0/u.magnitude());</b>
-<i class="no-highlight">223</i>&nbsp;        }
-<i class="no-highlight">224</i>&nbsp;    }
-<i class="no-highlight">225</i>&nbsp;
-<i class="no-highlight">226</i>&nbsp;    /**
-<i class="no-highlight">227</i>&nbsp;     * set method modifies the element at index to equal value.
-<i class="no-highlight">228</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">229</i>&nbsp;     * @param index the index we want to modify
-<i class="no-highlight">230</i>&nbsp;     * @param value the new value
-<i class="no-highlight">231</i>&nbsp;     * @return a Vector with the value at index updated
-<i class="no-highlight">232</i>&nbsp;     */
-<i class="no-highlight">233</i>&nbsp;    public static Vector set(Vector u, int index, double value) {
-<b class="nc"><i class="no-highlight">234</i>&nbsp;        if (index &lt; 0 || index &gt;= u.length()) {</b>
-<b class="nc"><i class="no-highlight">235</i>&nbsp;            throw new IllegalArgumentException(&quot;Index is out of range&quot;);</b>
-<i class="no-highlight">236</i>&nbsp;        }
-<i class="no-highlight">237</i>&nbsp;
-<b class="nc"><i class="no-highlight">238</i>&nbsp;        u.set(index,value);</b>
-<i class="no-highlight">239</i>&nbsp;
-<b class="nc"><i class="no-highlight">240</i>&nbsp;        return u;</b>
-<i class="no-highlight">241</i>&nbsp;    }
-<i class="no-highlight">242</i>&nbsp;
-<i class="no-highlight">243</i>&nbsp;    /**
-<i class="no-highlight">244</i>&nbsp;     * subtract method returns the difference of two vectors. note
-<i class="no-highlight">245</i>&nbsp;     * that difference is a special case of sum (v1 + (-1)*v2)
-<i class="no-highlight">246</i>&nbsp;     * @param v1 a Vector object
-<i class="no-highlight">247</i>&nbsp;     * @param v2 a Vector object
-<i class="no-highlight">248</i>&nbsp;     * @return a new Vector object whose entries are the differences of
-<i class="no-highlight">249</i>&nbsp;     *         the entries in v1 and v2 (v1 - v2)
-<i class="no-highlight">250</i>&nbsp;     */
-<i class="no-highlight">251</i>&nbsp;    public static Vector subtract(Vector v1, Vector v2) {
-<b class="nc"><i class="no-highlight">252</i>&nbsp;        return VectorAlgebra.add(v1, v2.multiply(-1));</b>
-<i class="no-highlight">253</i>&nbsp;    }
-<i class="no-highlight">254</i>&nbsp;
-<i class="no-highlight">255</i>&nbsp;    /**
-<i class="no-highlight">256</i>&nbsp;     * inverseVector returns the additive inverse of the vector passed.
-<i class="no-highlight">257</i>&nbsp;     * @param u a Vector
-<i class="no-highlight">258</i>&nbsp;     * @return a Vector whose entries have the signs flipped
-<i class="no-highlight">259</i>&nbsp;     */
-<i class="no-highlight">260</i>&nbsp;    public static Vector inverseVector(Vector u) {
-<b class="nc"><i class="no-highlight">261</i>&nbsp;        return VectorAlgebra.multiply(u, -1);</b>
-<i class="no-highlight">262</i>&nbsp;    }
-<i class="no-highlight">263</i>&nbsp;
-<i class="no-highlight">264</i>&nbsp;    /**
-<i class="no-highlight">265</i>&nbsp;     * Returns the entry in the specified position.
-<i class="no-highlight">266</i>&nbsp;     * @param u a Vector object
-<i class="no-highlight">267</i>&nbsp;     * @param position the position to return
-<i class="no-highlight">268</i>&nbsp;     * @return the value in u[position]
-<i class="no-highlight">269</i>&nbsp;     */
-<i class="no-highlight">270</i>&nbsp;    public static double get(Vector u, int position) {
-<b class="nc"><i class="no-highlight">271</i>&nbsp;        return u.get(position);</b>
-<i class="no-highlight">272</i>&nbsp;    }
-<i class="no-highlight">273</i>&nbsp;
-<i class="no-highlight">274</i>&nbsp;    /**
-<i class="no-highlight">275</i>&nbsp;     * Compares two double to check if they are equal
-<i class="no-highlight">276</i>&nbsp;     * @param a first value
-<i class="no-highlight">277</i>&nbsp;     * @param b second value
-<i class="no-highlight">278</i>&nbsp;     * @return true if they are equal
-<i class="no-highlight">279</i>&nbsp;     */
-<i class="no-highlight">280</i>&nbsp;    public  static  boolean isEqual(double a, double b){
-<i class="no-highlight">281</i>&nbsp;
-<b class="fc"><i class="no-highlight">282</i>&nbsp;        return Math.abs(a - b) &lt; Vector.THRESHOLD;</b>
-<i class="no-highlight">283</i>&nbsp;    }
-<i class="no-highlight">284</i>&nbsp;}
+<i class="no-highlight">201</i>&nbsp;
+<i class="no-highlight">202</i>&nbsp;    /**
+<i class="no-highlight">203</i>&nbsp;     * identityVector returns an additive identity vector (whose entries are
+<i class="no-highlight">204</i>&nbsp;     * all zeros).
+<i class="no-highlight">205</i>&nbsp;     * @param length the length of the vector
+<i class="no-highlight">206</i>&nbsp;     * @return a vector with all zeros
+<i class="no-highlight">207</i>&nbsp;     */
+<i class="no-highlight">208</i>&nbsp;    public static Vector identityVector(int length) {
+<b class="fc"><i class="no-highlight">209</i>&nbsp;        return new Vector(new double[length]);</b>
+<i class="no-highlight">210</i>&nbsp;    }
+<i class="no-highlight">211</i>&nbsp;
+<i class="no-highlight">212</i>&nbsp;    /**
+<i class="no-highlight">213</i>&nbsp;     * normalize scales the passed vector by dividing it by its
+<i class="no-highlight">214</i>&nbsp;     * magnitude. if the zero vector is passed, an IllegalArgumentException
+<i class="no-highlight">215</i>&nbsp;     * is thrown.
+<i class="no-highlight">216</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">217</i>&nbsp;     * @return a Vector object
+<i class="no-highlight">218</i>&nbsp;     */
+<i class="no-highlight">219</i>&nbsp;    public static Vector normalize(Vector u) {
+<b class="fc"><i class="no-highlight">220</i>&nbsp;        if (u.isZero()) {</b>
+<b class="fc"><i class="no-highlight">221</i>&nbsp;            throw new IllegalArgumentException();</b>
+<i class="no-highlight">222</i>&nbsp;        } else {
+<b class="fc"><i class="no-highlight">223</i>&nbsp;            return u.multiply(1.0/u.magnitude());</b>
+<i class="no-highlight">224</i>&nbsp;        }
+<i class="no-highlight">225</i>&nbsp;    }
+<i class="no-highlight">226</i>&nbsp;
+<i class="no-highlight">227</i>&nbsp;    /**
+<i class="no-highlight">228</i>&nbsp;     * set method modifies the element at index to equal value.
+<i class="no-highlight">229</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">230</i>&nbsp;     * @param index the index we want to modify
+<i class="no-highlight">231</i>&nbsp;     * @param value the new value
+<i class="no-highlight">232</i>&nbsp;     * @return a Vector with the value at index updated
+<i class="no-highlight">233</i>&nbsp;     */
+<i class="no-highlight">234</i>&nbsp;    public static Vector set(Vector u, int index, double value) {
+<b class="fc"><i class="no-highlight">235</i>&nbsp;        if (index &lt; 0 || index &gt;= u.length()) {</b>
+<b class="fc"><i class="no-highlight">236</i>&nbsp;            throw new IllegalArgumentException(&quot;Index is out of range&quot;);</b>
+<i class="no-highlight">237</i>&nbsp;        }
+<i class="no-highlight">238</i>&nbsp;
+<b class="fc"><i class="no-highlight">239</i>&nbsp;        u.set(index,value);</b>
+<i class="no-highlight">240</i>&nbsp;
+<b class="fc"><i class="no-highlight">241</i>&nbsp;        return u;</b>
+<i class="no-highlight">242</i>&nbsp;    }
+<i class="no-highlight">243</i>&nbsp;
+<i class="no-highlight">244</i>&nbsp;    /**
+<i class="no-highlight">245</i>&nbsp;     * subtract method returns the difference of two vectors. note
+<i class="no-highlight">246</i>&nbsp;     * that difference is a special case of sum (v1 + (-1)*v2)
+<i class="no-highlight">247</i>&nbsp;     * @param v1 a Vector object
+<i class="no-highlight">248</i>&nbsp;     * @param v2 a Vector object
+<i class="no-highlight">249</i>&nbsp;     * @return a new Vector object whose entries are the differences of
+<i class="no-highlight">250</i>&nbsp;     *         the entries in v1 and v2 (v1 - v2)
+<i class="no-highlight">251</i>&nbsp;     */
+<i class="no-highlight">252</i>&nbsp;    public static Vector subtract(Vector v1, Vector v2) {
+<b class="fc"><i class="no-highlight">253</i>&nbsp;        return VectorAlgebra.add(v1, v2.multiply(-1));</b>
+<i class="no-highlight">254</i>&nbsp;    }
+<i class="no-highlight">255</i>&nbsp;
+<i class="no-highlight">256</i>&nbsp;    /**
+<i class="no-highlight">257</i>&nbsp;     * inverseVector returns the additive inverse of the vector passed.
+<i class="no-highlight">258</i>&nbsp;     * @param u a Vector
+<i class="no-highlight">259</i>&nbsp;     * @return a Vector whose entries have the signs flipped
+<i class="no-highlight">260</i>&nbsp;     */
+<i class="no-highlight">261</i>&nbsp;    public static Vector inverseVector(Vector u) {
+<b class="fc"><i class="no-highlight">262</i>&nbsp;        return VectorAlgebra.multiply(u, -1);</b>
+<i class="no-highlight">263</i>&nbsp;    }
+<i class="no-highlight">264</i>&nbsp;
+<i class="no-highlight">265</i>&nbsp;    /**
+<i class="no-highlight">266</i>&nbsp;     * Returns the entry in the specified position.
+<i class="no-highlight">267</i>&nbsp;     * @param u a Vector object
+<i class="no-highlight">268</i>&nbsp;     * @param position the position to return
+<i class="no-highlight">269</i>&nbsp;     * @return the value in u[position]
+<i class="no-highlight">270</i>&nbsp;     */
+<i class="no-highlight">271</i>&nbsp;    public static double get(Vector u, int position) {
+<b class="fc"><i class="no-highlight">272</i>&nbsp;        return u.get(position);</b>
+<i class="no-highlight">273</i>&nbsp;    }
+<i class="no-highlight">274</i>&nbsp;
+<i class="no-highlight">275</i>&nbsp;    /**
+<i class="no-highlight">276</i>&nbsp;     * Compares two double to check if they are equal
+<i class="no-highlight">277</i>&nbsp;     * @param a first value
+<i class="no-highlight">278</i>&nbsp;     * @param b second value
+<i class="no-highlight">279</i>&nbsp;     * @return true if they are equal
+<i class="no-highlight">280</i>&nbsp;     */
+<i class="no-highlight">281</i>&nbsp;    public  static  boolean isEqual(double a, double b){
+<i class="no-highlight">282</i>&nbsp;
+<b class="fc"><i class="no-highlight">283</i>&nbsp;        return Math.abs(a - b) &lt; Vector.THRESHOLD;</b>
+<i class="no-highlight">284</i>&nbsp;    }
+<i class="no-highlight">285</i>&nbsp;}
 </div>
 </pre>
 </div>
@@ -383,7 +384,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2022-04-05 16:23</div>
+    <div style="float:right;">generated on 2022-11-22 16:53</div>
 </div>
 </body>
 </html>

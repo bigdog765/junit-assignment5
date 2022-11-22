@@ -4,6 +4,6 @@ import org.junit.platform.suite.api.*;
 
 @Suite
 @SuiteDisplayName("Suite combining all the tests")
-@SelectClasses({})
+@SelectClasses({edu.wayne.csc4110test.VectorTest.class})
 public class VectorSuite {
 }
